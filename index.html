@@ -2,41 +2,58 @@
 <html>
 <head>
     <title>And ACTION</title>
+    <link rel="icon" href="AADC.ico" type="image/x-icon">
     <style>
         :root {
             --show-box-font-size: 18px; /* Adjustable font size for show box */
             --display-box-font-size: 16px; /* Adjustable font size for display box */
-            --button-padding: 10px 20px; /* Padding inside buttons */
+            --button-font-size: 16px; /* Adjustable font size for buttons */
+            --button-width: 150px; /* Adjustable button width */
+            --button-height: 50px; /* Adjustable button height */
+            --button-spacing: 50px; /* Spacing between buttons */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
         }
 
         .centered {
             text-align: center;
-            position: absolute;
-            top: calc(50% + 30px); /* Lowering by 30px */
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        /* Toggle button styling */
-        .toggle {
-            display: inline-block; /* Display toggles inline */
-            margin: 10px; /* Space out toggles */
-            cursor: pointer;
-        }
-        
-        button {
-            display: block;
-            margin: var(--button-margin) 25px; /* Spacing between buttons increased by 50px */
-            padding: var(--button-padding);
-            cursor: pointer;
+            width: 100%;
+            transition: all 0.5s ease;
         }
 
+        .hidden {
+            display: none;
+        }
+        
         #showBox, #displayBox {
+            font-size: var(--display-box-font-size);
             margin: 20px auto;
             padding: 10px;
             border: 1px solid black;
             max-width: 600px;
             text-align: center;
+        }
+
+        /* Toggle button styling */
+        .toggle {
+            margin: 20px 5px;
+            cursor: pointer;
+        }
+        
+        button {
+            font-size: var(--button-font-size);
+            width: var(--button-width);
+            height: var(--button-height);
+            margin: var(--button-spacing) 10px 0;
+            cursor: pointer;
         }
 
         #showBox {
@@ -46,39 +63,38 @@
         #displayBox {
             font-size: var(--display-box-font-size);
         }
-
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
 
 <div id="dynamicText"></div>
 
+<!-- Main Menu -->
+<div class="centered" id="mainMenu">
+    <button onclick="showMenu('player')">Player</button>
+    <button onclick="showMenu('host')">Host</button>
+    <button onclick="showMenu('tutorial')">Tutorial</button>
+</div>
+
+<!-- Player Menu -->
 <div class="centered hidden" id="playerMenu">
-    <button id="backButton" onclick="showMenu('main')">Back</button>
-    <button id="rerollButton" onclick="rerollPlayer()">Reroll</button>
-    <div id="showBox">You are playing as...</div>
-    <div id="displayBox"></div>
+    <button onclick="showMenu('main')">Back</button>
+    <button onclick="rerollPlayer()">Reroll</button>
+    <div id="showBox" style="font-size: var(--show-box-font-size);">You are playing as...</div>
+    <div id="displayBox" style="font-size: var(--display-box-font-size);"></div>
     <div class="toggle">Speech: <input type="checkbox" id="SpeechToggle"></div>
     <div class="toggle">Attitude: <input type="checkbox" id="AttitudeToggle"></div>
     <div class="toggle">Personality: <input type="checkbox" id="PersonalityToggle"></div>
     <div class="toggle">Quest: <input type="checkbox" id="QuestToggle"></div>
 </div>
 
-<div class="centered hidden" id="playerMenu">
-    <button id="backButton" onclick="showMenu('main')">Back</button>
-    <button id="rerollButton" onclick="rerollPlayer()">Reroll</button>
-    <div id="showBox">You are playing as...</div>
-    <div id="displayBox"></div>
-</div>
-
+<!-- Host Menu -->
 <div class="centered hidden" id="hostMenu">
-    <button id="backButton" onclick="showMenu('main')">Back</button>
-    <button id="rerollButton">Reroll</button>
+    <button onclick="showMenu('main')">Back</button>
+    <button onclick="rerollHost()">Reroll</button>
 </div>
 
+<!-- Tutorial Menu -->
 <div class="centered hidden" id="tutorialMenu">
     <div>TEXT!</div>
     <button onclick="showMenu('main')">Back</button>
@@ -93,12 +109,14 @@
         if (mainIndex < mainText.length) {
             let span = document.createElement('span');
             span.innerText = mainText[mainIndex];
-            span.style.fontSize = mainIndex < 22 ? (mainIndex + 1) + 'px' : '22px';
+            let fontSize = mainIndex + 1; // Adjusts the logic for font size increment
+            span.style.fontSize = `${fontSize}px`;
             mainContainer.appendChild(span);
             mainIndex++;
             setTimeout(typeMainLetter, 90);
         } else {
-            document.getElementById('mainMenu').classList.remove('hidden');
+            // Adjust to reveal the mainMenu properly once typing is done
+            showMenu('main'); // This will now correctly handle showing the main menu
         }
     }
 
