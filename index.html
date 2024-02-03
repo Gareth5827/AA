@@ -116,19 +116,12 @@
         if (mainIndex < mainText.length) {
             let span = document.createElement('span');
             span.innerText = mainText[mainIndex];
-            // Adjust font size only for the "a"s in "and"
-            if (mainIndex < 21) { // "a"s in "and"
-                span.style.fontSize = (mainIndex + 1) + 'px';
-            } else { // "nd ACTION"
-                span.style.fontSize = '22px';
-            }
+            span.style.fontSize = mainIndex < 22 ? (mainIndex + 1) + 'px' : '22px';
             mainContainer.appendChild(span);
             mainIndex++;
             setTimeout(typeMainLetter, 90);
         } else {
-            setTimeout(() => {
-                document.getElementById('mainMenu').style.display = 'flex'; // Adjusted to show the main menu after intro
-            }, 500);
+            document.getElementById('mainMenu').classList.remove('hidden');
         }
     }
 
