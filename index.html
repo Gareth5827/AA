@@ -16,7 +16,14 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
+        
+        /* Toggle button styling */
+        .toggle {
+            display: inline-block; /* Display toggles inline */
+            margin: 10px; /* Space out toggles */
+            cursor: pointer;
+        }
+        
         button {
             display: block;
             margin: var(--button-margin) 25px; /* Spacing between buttons increased by 50px */
@@ -49,10 +56,15 @@
 
 <div id="dynamicText"></div>
 
-<div class="centered hidden" id="mainMenu">
-    <button onclick="showMenu('player')">Player</button>
-    <button onclick="showMenu('host')">Host</button>
-    <button onclick="showMenu('tutorial')">Tutorial</button>
+<div class="centered hidden" id="playerMenu">
+    <button id="backButton" onclick="showMenu('main')">Back</button>
+    <button id="rerollButton" onclick="rerollPlayer()">Reroll</button>
+    <div id="showBox">You are playing as...</div>
+    <div id="displayBox"></div>
+    <div class="toggle">Speech: <input type="checkbox" id="SpeechToggle"></div>
+    <div class="toggle">Attitude: <input type="checkbox" id="AttitudeToggle"></div>
+    <div class="toggle">Personality: <input type="checkbox" id="PersonalityToggle"></div>
+    <div class="toggle">Quest: <input type="checkbox" id="QuestToggle"></div>
 </div>
 
 <div class="centered hidden" id="playerMenu">
@@ -100,8 +112,29 @@
 
     function rerollPlayer() {
         const roles = ["Old man", "fake guru", "teenager", "baby", "banana sales man", "CEO", "clown", "magician"];
-        const selectedRole = roles[Math.floor(Math.random() * roles.length)];
-        document.getElementById('displayBox').innerText = selectedRole;
+        const speechModifiers = ["with a lisp", "with a western accent", "with a stutter"];
+        const attitudes = ["Sad", "Angry", "Scared", "Confused", "Calm"];
+        const personalities = ["Quirky", "Sassy", "Sarcastic", "Stoic"];
+        const quests = ["and your quest is to slowly go insane", "and your quest is to leave the scene early", "and your quest is to insult another player multiple times"];
+
+        let selectedRole = roles[Math.floor(Math.random() * roles.length)];
+        let description = "";
+
+        // Check each toggle and append modifiers accordingly
+        if (document.getElementById('SpeechToggle').checked) {
+            description += " " + speechModifiers[Math.floor(Math.random() * speechModifiers.length)];
+        }
+        if (document.getElementById('AttitudeToggle').checked) {
+            selectedRole = attitudes[Math.floor(Math.random() * attitudes.length)] + " " + selectedRole;
+        }
+        if (document.getElementById('PersonalityToggle').checked) {
+            selectedRole = personalities[Math.floor(Math.random() * personalities.length)] + " " + selectedRole;
+        }
+        if (document.getElementById('QuestToggle').checked) {
+            description += " " + quests[Math.floor(Math.random() * quests.length)];
+        }
+
+        document.getElementById('displayBox').innerText = selectedRole + description;
     }
 
     window.onload = function() {
