@@ -16,17 +16,24 @@
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             font-family: Arial, sans-serif;
+        }
+
+        #dynamicText {
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
         }
 
         .centered {
             text-align: center;
             width: 100%;
             transition: all 0.5s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .hidden {
@@ -109,14 +116,19 @@
         if (mainIndex < mainText.length) {
             let span = document.createElement('span');
             span.innerText = mainText[mainIndex];
-            let fontSize = mainIndex + 1; // Adjusts the logic for font size increment
-            span.style.fontSize = `${fontSize}px`;
+            // Adjust font size only for the "a"s in "and"
+            if (mainIndex < 21) { // "a"s in "and"
+                span.style.fontSize = (mainIndex + 1) + 'px';
+            } else { // "nd ACTION"
+                span.style.fontSize = '22px';
+            }
             mainContainer.appendChild(span);
             mainIndex++;
             setTimeout(typeMainLetter, 90);
         } else {
-            // Adjust to reveal the mainMenu properly once typing is done
-            showMenu('main'); // This will now correctly handle showing the main menu
+            setTimeout(() => {
+                document.getElementById('mainMenu').style.display = 'flex'; // Adjusted to show the main menu after intro
+            }, 500);
         }
     }
 
@@ -125,7 +137,7 @@
         menus.forEach(menu => {
             document.getElementById(menu).classList.add('hidden');
         });
-        document.getElementById(menuType + 'Menu').classList.remove('hidden');
+        document.getElementById(`${menuType}Menu`).classList.remove('hidden');
     }
 
     function rerollPlayer() {
