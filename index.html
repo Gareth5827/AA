@@ -129,21 +129,27 @@
             setTimeout(typeMainLetter, 90);
         } else {
             setTimeout(() => {
-                document.getElementById('mainMenu').style.display = 'block'; // Show main menu after intro
+                showMenu('main'); // This correctly toggles to show the main menu
             }, 500);
         }
     }
 
     function showMenu(menuType) {
-        const menus = ['playerMenu', 'hostMenu', 'tutorialMenu'];
-        menus.forEach(menu => {
-            const menuElement = document.getElementById(menu);
-            menuElement.classList.add('hidden');
+        // Correctly toggle the display of the mainMenu using classList
+        document.getElementById('mainMenu').classList.add('hidden'); // Ensure mainMenu is also considered
+    
+        // Toggle visibility of all menus based on the menuType argument
+        const menus = ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'];
+        menus.forEach(menuId => {
+            const menuElement = document.getElementById(menuId);
+            if (menuElement) {
+                if (menuId === `${menuType}Menu`) {
+                    menuElement.classList.remove('hidden');
+                } else {
+                    menuElement.classList.add('hidden');
+                }
+            }
         });
-        const targetMenu = document.getElementById(`${menuType}Menu`);
-        if (targetMenu) {
-            targetMenu.classList.remove('hidden');
-        }
     }
 
     function rerollPlayer() {
