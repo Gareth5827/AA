@@ -16,6 +16,10 @@
         body {
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             font-family: Arial, sans-serif;
         }
 
@@ -59,13 +63,6 @@
         #displayBox {
             font-size: var(--display-box-font-size);
         }
-
-        #dynamicText {
-        position: absolute;
-        top: 0;
-        left: 0;
-        white-space: nowrap;
-        }
     </style>
 </head>
 <body>
@@ -108,24 +105,19 @@
     let mainContainer = document.getElementById('dynamicText');
     let mainIndex = 0;
 
-function typeMainLetter() {
-    if (mainIndex < mainText.length) {
-        let span = document.createElement('span');
-        span.innerText = mainText[mainIndex];
-        
-        // Adjust the font size for 'a's in "and", "nd ACTION" at size 22
-        if (mainIndex < 21) { // for 'a's in "and"
-            span.style.fontSize = `${mainIndex + 1}px`;
-        } else { // for "nd ACTION"
-            span.style.fontSize = '22px';
+    function typeMainLetter() {
+        if (mainIndex < mainText.length) {
+            let span = document.createElement('span');
+            span.innerText = mainText[mainIndex];
+            let fontSize = mainIndex + 1; // Adjusts the logic for font size increment
+            span.style.fontSize = `${fontSize}px`;
+            mainContainer.appendChild(span);
+            mainIndex++;
+            setTimeout(typeMainLetter, 90);
+        } else {
+            // Adjust to reveal the mainMenu properly once typing is done
+            showMenu('main'); // This will now correctly handle showing the main menu
         }
-
-        mainContainer.appendChild(span);
-        mainIndex++;
-        setTimeout(typeMainLetter, 90);
-    } else {
-        // Transition to main menu or other actions after the intro sequence
-        document.getElementById('mainMenu').classList.remove('hidden');
     }
 
     function showMenu(menuType) {
