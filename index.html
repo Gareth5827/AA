@@ -120,7 +120,11 @@
             // Adjust font size only for "a"s in "and"
             if (mainIndex < 21) { // Only the "a"s
                 span.style.fontSize = `${mainIndex + 1}px`;
-            } else {
+            }
+            if (mainIndex === mainText.length) {
+        setTimeout(() => document.getElementById('mainMenu').classList.remove('hidden'), 500);
+            }
+            else {
                 span.style.fontSize = '22px'; // "nd ACTION"
             }
 
@@ -135,20 +139,9 @@
     }
 
     function showMenu(menuType) {
-        // Correctly toggle the display of the mainMenu using classList
-        document.getElementById('mainMenu').classList.add('hidden'); // Ensure mainMenu is also considered
-    
-        // Toggle visibility of all menus based on the menuType argument
-        const menus = ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'];
-        menus.forEach(menuId => {
-            const menuElement = document.getElementById(menuId);
-            if (menuElement) {
-                if (menuId === `${menuType}Menu`) {
-                    menuElement.classList.remove('hidden');
-                } else {
-                    menuElement.classList.add('hidden');
-                }
-            }
+        ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'].forEach(id => {
+            const menu = document.getElementById(id);
+            menu.classList.toggle('hidden', id !== `${menuType}Menu`);
         });
     }
 
