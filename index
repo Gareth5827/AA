@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>And ACTION</title>
+    <style>
+        /* Centering buttons and menus */
+        .centered {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Button styling */
+        button {
+            display: block;
+            margin: 20px auto; /* Space between buttons */
+            padding: 10px 20px;
+        }
+
+        /* Menu-specific styles */
+        #playerMenu button, #hostMenu button, #tutorialMenu button {
+            margin: 10px 0; /* Space between buttons in menus */
+        }
+
+        #backButton {
+            position: absolute;
+            bottom: 10px;
+        }
+
+        #rerollButton {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        #tutorialText {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Dynamic text animation */
+        #dynamicText span {
+            font-size: 22px; /* Starting font size for 'nd ACTION' */
+        }
+    </style>
+</head>
+<body>
+
+<div id="dynamicText"></div>
+
+<!-- Main Menu -->
+<div class="centered hidden" id="mainMenu">
+    <button onclick="showMenu('player')">Player</button>
+    <button onclick="showMenu('host')">Host</button>
+    <button onclick="showMenu('tutorial')">Tutorial</button>
+</div>
+
+<!-- Player Menu -->
+<div class="centered hidden" id="playerMenu">
+    <button id="backButton" onclick="showMenu('main')">Back</button>
+    <button id="rerollButton">Reroll</button>
+</div>
+
+<!-- Host Menu -->
+<div class="centered hidden" id="hostMenu">
+    <button id="backButton" onclick="showMenu('main')">Back</button>
+    <button id="rerollButton">Reroll</button>
+</div>
+
+<!-- Tutorial Menu -->
+<div class="centered hidden" id="tutorialMenu">
+    <div id="tutorialText">TEXT!</div>
+    <button onclick="showMenu('main')">Back</button>
+</div>
+
+<script>
+    let mainText = "aaaaaaaaaaaaaaaaaaaaand ACTION";
+    let mainContainer = document.getElementById('dynamicText');
+    let mainIndex = 0;
+
+    function typeMainLetter() {
+        if (mainIndex < mainText.length) {
+            let span = document.createElement('span');
+            span.innerText = mainText[mainIndex];
+            span.style.fontSize = mainIndex < 22 ? (mainIndex + 1) + 'px' : '22px';
+            mainContainer.appendChild(span);
+            mainIndex++;
+            setTimeout(typeMainLetter, 90);
+        } else {
+            document.getElementById('mainMenu').classList.remove('hidden');
+        }
+    }
+
+    function showMenu(menuType) {
+        // Hide all menus
+        document.getElementById('mainMenu').classList.add('hidden');
+        document.getElementById('playerMenu').classList.add('hidden');
+        document.getElementById('hostMenu').classList.add('hidden');
+        document.getElementById('tutorialMenu').classList.add('hidden');
+
+        // Show specific menu
+        document.getElementById(menuType + 'Menu').classList.remove('hidden');
+    }
+
+    window.onload = function() {
+        typeMainLetter();
+    };
+</script>
+
+</body>
+</html>
