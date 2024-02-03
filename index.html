@@ -4,47 +4,44 @@
     <title>And ACTION</title>
     <style>
         :root {
-            --button-font-size: 32px; /* Default font size for buttons */
-            --button-padding: 5px 10px; /* Padding inside buttons */
-            --button-margin: 40px auto; /* Margin around buttons */
+            --show-box-font-size: 18px; /* Adjustable font size for show box */
+            --display-box-font-size: 16px; /* Adjustable font size for display box */
+            --button-padding: 10px 20px; /* Padding inside buttons */
         }
 
         .centered {
             text-align: center;
             position: absolute;
-            top: 50%;
+            top: calc(50% + 30px); /* Lowering by 30px */
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
         button {
             display: block;
-            margin: var(--button-margin);
+            margin: var(--button-margin) 25px; /* Spacing between buttons increased by 50px */
             padding: var(--button-padding);
-            font-size: var(--button-font-size);
-            cursor: pointer; /* Changes cursor to pointer on hover */
+            cursor: pointer;
+        }
+
+        #showBox, #displayBox {
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid black;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        #showBox {
+            font-size: var(--show-box-font-size);
+        }
+
+        #displayBox {
+            font-size: var(--display-box-font-size);
         }
 
         .hidden {
             display: none;
-        }
-
-        #dynamicText span {
-            font-size: 22px;
-        }
-
-        /* Specific adjustments for back and reroll buttons */
-        #backButton, #rerollButton {
-            position: absolute;
-            bottom: 10px;
-        }
-
-        #backButton {
-            left: 10px;
-        }
-
-        #rerollButton {
-            right: 10px;
         }
     </style>
 </head>
@@ -60,7 +57,9 @@
 
 <div class="centered hidden" id="playerMenu">
     <button id="backButton" onclick="showMenu('main')">Back</button>
-    <button id="rerollButton">Reroll</button>
+    <button id="rerollButton" onclick="rerollPlayer()">Reroll</button>
+    <div id="showBox">You are playing as...</div>
+    <div id="displayBox"></div>
 </div>
 
 <div class="centered hidden" id="hostMenu">
@@ -69,7 +68,7 @@
 </div>
 
 <div class="centered hidden" id="tutorialMenu">
-    <div id="tutorialText">TEXT!</div>
+    <div>TEXT!</div>
     <button onclick="showMenu('main')">Back</button>
 </div>
 
@@ -94,12 +93,15 @@
     function showMenu(menuType) {
         const menus = ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'];
         menus.forEach(menu => {
-            if (menuType + 'Menu' === menu) {
-                document.getElementById(menu).classList.remove('hidden');
-            } else {
-                document.getElementById(menu).classList.add('hidden');
-            }
+            document.getElementById(menu).classList.add('hidden');
         });
+        document.getElementById(menuType + 'Menu').classList.remove('hidden');
+    }
+
+    function rerollPlayer() {
+        const roles = ["Old man", "fake guru", "teenager", "baby", "banana sales man", "CEO", "clown", "magician"];
+        const selectedRole = roles[Math.floor(Math.random() * roles.length)];
+        document.getElementById('displayBox').innerText = selectedRole;
     }
 
     window.onload = function() {
