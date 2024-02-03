@@ -120,11 +120,7 @@
             // Adjust font size only for "a"s in "and"
             if (mainIndex < 21) { // Only the "a"s
                 span.style.fontSize = `${mainIndex + 1}px`;
-            }
-            if (mainIndex === mainText.length) {
-        setTimeout(() => document.getElementById('mainMenu').classList.remove('hidden'), 500);
-            }
-            else {
+            } else {
                 span.style.fontSize = '22px'; // "nd ACTION"
             }
 
@@ -133,16 +129,21 @@
             setTimeout(typeMainLetter, 90);
         } else {
             setTimeout(() => {
-                showMenu('main'); // This correctly toggles to show the main menu
+                document.getElementById('mainMenu').style.display = 'block'; // Show main menu after intro
             }, 500);
         }
     }
 
     function showMenu(menuType) {
-        ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'].forEach(id => {
-            const menu = document.getElementById(id);
-            menu.classList.toggle('hidden', id !== `${menuType}Menu`);
+        const menus = ['playerMenu', 'hostMenu', 'tutorialMenu'];
+        menus.forEach(menu => {
+            const menuElement = document.getElementById(menu);
+            menuElement.classList.add('hidden');
         });
+        const targetMenu = document.getElementById(`${menuType}Menu`);
+        if (targetMenu) {
+            targetMenu.classList.remove('hidden');
+        }
     }
 
     function rerollPlayer() {
