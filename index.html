@@ -152,14 +152,23 @@
 
 <!-- Host Menu -->
 <div class="centered hidden" id="hostMenu">
-    <button onclick="showMenu('main')">Back</button>
-    <button onclick="rerollHost()">Reroll</button>
-    <div id="hostBox" style="font-size: var(--host-box-font-size);">Your scene is...</div>
+    <div class="button-container">
+        <button onclick="showMenu('main')">Back</button>
+        <button onclick="rerollHost()">Reroll</button>
+    </div>
+    <div id="hostBox" style="font-size: var(--show-box-font-size);">Your scene is...</div>
     <div id="hostDisplayBox" style="font-size: var(--display-box-font-size);"></div>
-    <div class="toggle">Weather: <input type="checkbox" id="WeatherToggle"></div>
-    <div class="toggle">Location Modifier: <input type="checkbox" id="LocationModifierToggle"></div>
-    <div class="toggle">Ender: <input type="checkbox" id="EnderToggle"></div>
-    <div class="toggle">Situation: <input type="checkbox" id="SituationToggle"></div>
+    
+    <div class="toggle-container">
+        <div>
+            <div class="toggle">Weather: <input type="checkbox" id="WeatherToggle"></div>
+            <div class="toggle">Location Modifier: <input type="checkbox" id="LocationModifierToggle"></div>
+        </div>
+        <div>
+            <div class="toggle">Ender: <input type="checkbox" id="EnderToggle"></div>
+            <div class="toggle">Situation: <input type="checkbox" id="SituationToggle"></div>
+        </div>
+    </div>
 </div>
 
 <!-- Tutorial Menu -->
