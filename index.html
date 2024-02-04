@@ -6,11 +6,11 @@
     <style>
         :root {
             --show-box-font-size: 18px; /* Adjustable font size for show box */
-            --display-box-font-size: 16px; /* Adjustable font size for display box */
-            --button-font-size: 18px; /* Adjustable font size for buttons */
+            --display-box-font-size: 20px; /* Adjustable font size for display box */
+            --button-font-size: 20px; /* Adjustable font size for buttons */
             --padding: 20px;
-            --button-width: 150px; /* Adjustable button width */
-            --button-height: 50px; /* Adjustable button height */
+            --button-width: 130px; /* Adjustable button width */
+            --button-height: 80px; /* Adjustable button height */
             --button-spacing: 50px; /* Spacing between buttons */
             --host-box-font-size: 18px; /* Adjustable font size for host box */
             --host-display-box-font-size: 16px; /* Adjustable font size for host display box */
@@ -47,7 +47,7 @@
             font-size: var(--display-box-font-size);
             padding: var(--padding);
             margin: 20px auto;
-            max-width: calc(100% - 40px); /* Adjust based on padding to prevent text from touching the screen edges */
+            max-width: calc(100% - 70px); /* Adjust based on padding to prevent text from touching the screen edges */
             box-sizing: border-box; /* Ensures padding is included in the width */
         }
 
@@ -154,10 +154,10 @@
     function rerollHost() {
         const places = ["Trailer park", "Coffee shop", "Castle", "Beach"];
         const situations = {
-            "Trailer park": ["Community BBQ", "New trailer"],
-            "Coffee shop": ["Only has soy milk", "rush hour"],
-            "Castle": ["Under siege", "royal ball"],
-            "Beach": ["Shark sighting", "Volleyball tournament"]
+            "Trailer park": ["having a community BBQ", "with a new trailer"],
+            "Coffee shop": ["that only has soy milk", "during rush hour"],
+            "Castle": ["under siege", "hosting a royal ball"],
+            "Beach": ["with a shark sighting", "with a volleyball tournament"]
         };
         const weathers = ["raining", "snowing", "hailing", "storming", "foggy"];
         const locationModifiers = ["Spooky", "Mythical", "Run down", "Ancient", "Brand new"];
@@ -179,12 +179,12 @@
         if (document.getElementById('SituationToggle').checked) {
             let placeSituations = situations[selectedPlace] || [];
             let situation = placeSituations[Math.floor(Math.random() * placeSituations.length)];
-            description += ", " + situation; // Ensure the situation is appended correctly
+            description += situation; // Ensure the situation is appended correctly
         }
     
         // Apply weather if toggle is on
         if (document.getElementById('WeatherToggle').checked) {
-            description += " And it's " + weathers[Math.floor(Math.random() * weathers.length)] + "!";
+            description += " and it's " + weathers[Math.floor(Math.random() * weathers.length)] + "!";
         }
     
         // Apply ender if toggle is on
