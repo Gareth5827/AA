@@ -76,6 +76,11 @@
             transform: scale(1.5); /* Enlarges checkboxes */
             margin: 0 10px; /* Adjust spacing around checkboxes */
         }
+
+                .menuButton {
+            font-size: 25px; /* Larger text for buttons */
+            margin: 0 30px; /* Increased spacing between buttons */
+        }
         
         .MainMenuButton {
             display: block; /* Ensures each button is on a new line */
@@ -112,10 +117,9 @@
             font-size: 28px;
         }
 
-                /* Adjusting button layout for Back and Reroll */
-        #playerMenu button {
-            font-size: 25px; /* Confirming larger text for buttons */
-            margin: 0 30px; /* Adjusted to increase spacing between buttons */
+        #playerMenu button, #hostMenu button {
+            font-size: 25px; /* Larger text for buttons */
+            margin: 0 30px; /* Increased spacing between buttons */
         }
     </style>
 </head>
@@ -153,8 +157,8 @@
 <!-- Host Menu -->
 <div class="centered hidden" id="hostMenu">
     <div class="button-container">
-        <button onclick="showMenu('main')">Back</button>
-        <button onclick="rerollHost()">Reroll</button>
+    <button class="menuButton" onclick="showMenu('main')">Back</button>
+    <button class="menuButton" onclick="rerollHost()">Reroll</button>
     </div>
     <div id="hostBox" style="font-size: var(--show-box-font-size);">Your scene is...</div>
     <div id="hostDisplayBox" style="font-size: var(--display-box-font-size);"></div>
