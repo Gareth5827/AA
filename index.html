@@ -154,19 +154,18 @@
             mainIndex++;
             setTimeout(typeMainLetter, 90);
         } else {
+            // This line ensures the main menu is shown only after the text animation completes
             document.getElementById('mainMenu').classList.remove('hidden');
         }
     }
 
     function showMenu(menuType) {
-        console.log(`Switching to menu: ${menuType}`); // Debug log
         const menus = ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'];
         menus.forEach(menu => {
-            document.getElementById(menu).classList.add('hidden');
-            console.log(`Hiding: ${menu}`); // Debug log
+            document.getElementById(menu).classList.add('hidden'); // Hide all menus
         });
+        // This line shows the selected menu by removing the 'hidden' class
         document.getElementById(`${menuType}Menu`).classList.remove('hidden');
-        console.log(`Showing: ${menuType}Menu`); // Debug log
     }
 
     function rerollHost() {
