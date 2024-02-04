@@ -7,14 +7,14 @@
         :root {
             --show-box-font-size: 18px; /* Adjustable font size for show box */
             --display-box-font-size: 20px; /* Adjustable font size for display box */
-            --button-font-size: 20px; /* Adjustable font size for buttons */
+            --button-font-size: 28px; /* Adjustable font size for buttons */
             --padding: 20px;
             --button-width: 130px; /* Adjustable button width */
             --button-height: 80px; /* Adjustable button height */
             --button-spacing: 50px; /* Spacing between buttons */
             --host-box-font-size: 18px; /* Adjustable font size for host box */
             --host-display-box-font-size: 16px; /* Adjustable font size for host display box */
-            --tutorial-text-font-size: 26px; /* Adjustable font size for tutorial text */
+            --tutorial-text-font-size: 22px; /* Adjustable font size for tutorial text */
             --back-button-font-size: 26px; /* Adjustable font size for back button */
         }
 
@@ -161,9 +161,9 @@
     function showMenu(menuType) {
         const menus = ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'];
         menus.forEach(menu => {
-            document.getElementById(menu).classList.add('hidden');
+            document.getElementById(menu).classList.add('hidden'); // Hide all menus
         });
-        document.getElementById(`${menuType}Menu`).classList.remove('hidden');
+        document.getElementById(`${menuType}Menu`).classList.remove('hidden'); // Show the selected menu
     }
 
     function rerollHost() {
