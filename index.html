@@ -26,21 +26,6 @@
             white-space: nowrap;
         }
 
-            @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .fadeInDown {
-        animation: fadeInDown 0.4s ease forwards;
-    }
-
         .centered {
             text-align: center;
             width: 100%;
@@ -144,20 +129,8 @@
         const menus = ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'];
         menus.forEach(menu => {
             document.getElementById(menu).classList.add('hidden');
-            // Remove the animation class from all buttons to reset animation
-            let buttons = document.getElementById(menu).getElementsByTagName('button');
-            for (let button of buttons) {
-                button.classList.remove('fadeInDown');
-            }
         });
-        // Remove the hidden class and add animation class to buttons in the new menu
-        const activeMenu = document.getElementById(`${menuType}Menu`);
-        activeMenu.classList.remove('hidden');
-        let activeButtons = activeMenu.getElementsByTagName('button');
-        for (let button of activeButtons) {
-            // Add a slight delay to ensure the class is added after element becomes visible
-            setTimeout(() => button.classList.add('fadeInDown'), 10);
-        }
+        document.getElementById(`${menuType}Menu`).classList.remove('hidden');
     }
 
     function rerollPlayer() {
