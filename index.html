@@ -213,10 +213,10 @@
     function rerollHost() {
         const places = ["Trailer park", "Coffee shop", "Castle", "Beach"];
         const situations = {
-            "Trailer park": ["having a community BBQ", "with a new trailer"],
-            "Coffee shop": ["that only has soy milk", "during rush hour"],
-            "Castle": ["under siege", "hosting a royal ball"],
-            "Beach": ["with a shark sighting", "with a volleyball tournament"]
+            "Trailer park": [" having a community BBQ", " with a new trailer"],
+            "Coffee shop": [" that only has soy milk", " during rush hour"],
+            "Castle": [" under siege", " hosting a royal ball"],
+            "Beach": [" with a shark sighting", " with a volleyball tournament"]
         };
         const weathers = ["raining", "snowing", "hailing", "storming", "foggy"];
         const locationModifiers = ["Spooky", "Mythical", "Run down", "Ancient", "Brand new"];
@@ -256,10 +256,10 @@
 
     function rerollPlayer() {
         const roles = ["Old man", "fake guru", "teenager", "baby", "banana sales man", "CEO", "clown", "magician"];
-        const speechModifiers = ["with a lisp", "with a western accent", "with a stutter"];
-        const attitudes = ["Sad", "Angry", "Scared", "Confused", "Calm"];
+        const speechModifiers = ["with a lisp", "with a western accent", "with a stutter", "with a british accent", "with a deep voice", "with a high pitched voice", "that is monotone", "with a raspy voice", "that talks quickly", "that talks slowly", "with a nasal voice", "with a whispery voice", "that mumbles"];
+        const attitudes = ["Sad", "Angry", "Scared", "Confused", "Calm", "Optimistic" , "Pessimistic", "Cynical", "Curious", "Rebellious", "Empathetic", "Arrogant", "Humble", "Aggressive", "Passive", "Loyal", "Deceptive", "Skeptical"];
         const personalities = ["Quirky", "Sassy", "Sarcastic", "Stoic"];
-        const quests = ["and your quest is to slowly go insane", "and your quest is to leave the scene early", "and your quest is to insult another player multiple times"];
+        const quests = ["and your quest is to slowly go insane", "and your quest is to leave the scene early", "and your quest is to insult another player multiple times", "and your quest is to make another player laugh", "and your quest is to slowly act more and more like a monkey until someone notices", "and your quest is to speak in an accent that gets stronger as the scene progresses", "and your quest is to become increasingly obsessed with an object in the scene", "and your quest is to end every sentence with a random word or vocal shift"];
 
         let selectedRole = roles[Math.floor(Math.random() * roles.length)];
         let description = "";
