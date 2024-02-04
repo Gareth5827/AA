@@ -11,7 +11,7 @@
             --padding: 10px;
             --button-width: 130px; /* Adjustable button width */
             --button-height: 70px; /* Adjustable button height */
-            --button-spacing: 125px; /* Spacing between buttons */
+            --button-spacing: 75px; /* Spacing between buttons */
             --host-box-font-size: 18px; /* Adjustable font size for host box */
             --host-display-box-font-size: 16px; /* Adjustable font size for host display box */
         }
@@ -53,8 +53,15 @@
 
         /* Toggle button styling */
         .toggle {
-            margin: 30px 30px;
+            margin: 10px 20px;
             cursor: pointer;
+        }
+
+                /* Adjustments for toggle layout */
+        .toggle-container {
+            display: flex;
+            justify-content: center; /* Centers the toggle containers */
+            flex-wrap: wrap; /* Allows toggles to wrap if needed */
         }
 
         .toggle label {
@@ -109,7 +116,13 @@
         }
 
         #displayBox {
-            font-size: var(--display-box-font-size);
+            font-size: 28px;
+        }
+
+                /* Adjusting button layout for Back and Reroll */
+        #playerMenu button {
+            font-size: 25px; /* Confirming larger text for buttons */
+            margin: 0 30px; /* Adjusted to increase spacing between buttons */
         }
     </style>
 </head>
@@ -125,8 +138,10 @@
 </div>
 
 <div class="centered hidden" id="playerMenu">
-    <button onclick="showMenu('main')">Back</button>
-    <button onclick="rerollPlayer()">Reroll</button>
+    <div class="button-container">
+        <button onclick="showMenu('main')">Back</button>
+        <button onclick="rerollPlayer()">Reroll</button>
+    </div>
     <div id="showBox" style="font-size: var(--show-box-font-size);">You are playing as...</div>
     <div id="displayBox" style="font-size: var(--display-box-font-size);"></div>
     
