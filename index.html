@@ -154,7 +154,6 @@
             mainIndex++;
             setTimeout(typeMainLetter, 90);
         } else {
-            // This line ensures the main menu is shown only after the text animation completes
             document.getElementById('mainMenu').classList.remove('hidden');
         }
     }
@@ -162,9 +161,8 @@
     function showMenu(menuType) {
         const menus = ['mainMenu', 'playerMenu', 'hostMenu', 'tutorialMenu'];
         menus.forEach(menu => {
-            document.getElementById(menu).classList.add('hidden'); // Hide all menus
+            document.getElementById(menu).classList.add('hidden');
         });
-        // This line shows the selected menu by removing the 'hidden' class
         document.getElementById(`${menuType}Menu`).classList.remove('hidden');
     }
 
