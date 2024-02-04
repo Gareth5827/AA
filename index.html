@@ -57,12 +57,20 @@
             cursor: pointer;
         }
         
-        button {
+        MainMenubutton {
             display: block; /* This makes each button take up its own line, aligning them vertically */
             font-size: var(--button-font-size);
             width: var(--button-width);
             height: var(--button-height);
             margin: var(--button-spacing) auto 0; /* Adjusted to center the buttons and provide spacing */
+            cursor: pointer;
+        }
+
+        button {
+            font-size: var(--button-font-size);
+            width: var(--button-width);
+            height: var(--button-height);
+            margin: var(--button-spacing) 10px 0;
             cursor: pointer;
         }
 
@@ -88,9 +96,9 @@
 
 <!-- Main Menu, initially hidden -->
 <div class="centered hidden" id="mainMenu">
-    <button onclick="showMenu('player')">Player</button>
-    <button onclick="showMenu('host')">Host</button>
-    <button onclick="showMenu('tutorial')">Tutorial</button>
+    <button onclick="showMenu('player')">Player</MainMenubutton>
+    <button onclick="showMenu('host')">Host</MainMenubutton>
+    <button onclick="showMenu('tutorial')">Tutorial</MainMenubutton>
 </div>
 
 <!-- Player Menu -->
