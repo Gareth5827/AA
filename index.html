@@ -148,7 +148,6 @@
             <div class="toggle">Attitude: <input type="checkbox" id="AttitudeToggle"></div>
         </div>
         <div>
-            <div class="toggle">Personality: <input type="checkbox" id="PersonalityToggle"></div>
             <div class="toggle">Quest: <input type="checkbox" id="QuestToggle"></div>
         </div>
     </div>
@@ -211,16 +210,21 @@
     }
 
     function rerollHost() {
-        const places = ["Trailer park", "Coffee shop", "Castle", "Beach"];
+        const places = ["Trailer park", "Coffee shop", "Castle", "Beach", "Amusement park", "Space station", "Wild west town", "Arctic research base", "1950s diner"];
         const situations = {
-            "Trailer park": [" having a community BBQ", " with a new trailer"],
-            "Coffee shop": [" that only has soy milk", " during rush hour"],
-            "Castle": [" under siege", " hosting a royal ball"],
-            "Beach": [" with a shark sighting", " with a volleyball tournament"]
+            "Trailer park": [" having a community BBQ", " having a community talent show", " with an unexpected celebrity visit"],
+            "Coffee shop": [" that only has soy milk", " during rush hour", " that has a new flavour"],
+            "Castle": [" under siege", " hosting a royal ball", " where a royal wedding is taking place],
+            "Beach": [" with a shark sighting", " with a volleyball tournament", "and everyone is sunburned"],
+            "Amusement park": [" where a whack-a-mole game is malfunctioning", " where all the staff are gone", " where all the customers are gone"]
+            "Space station": [" with a murderer on board", " that's communicating with an alien ship", " where everyone is trying to figure out what mission they should go on"],
+            "Wild west town": [" where drinks are half off at the saloon", " where everyone is playing black jack and fighting over winnings", " where a high noon quick shot tournament is taking place"],
+            "Arctic research base": [" where an unknown arctic explorer takes shelter", " where everyone is observing a strange rapid ice melting", " which held a frozen creature that has thawed"],
+            "1950s diner": [" where customers are having a dance battle", " where everyone is fighting over who gets the jukebox", " where people are talking about the cold war"]
         };
-        const weathers = ["raining", "snowing", "hailing", "storming", "foggy"];
-        const locationModifiers = ["Spooky", "Mythical", "Run down", "Ancient", "Brand new"];
-        const enders = ["someone falling", "someone crying", "someone slapping someone else", "someone dying"];
+        const weathers = ["raining", "snowing", "hailing", "storming", "foggy", "cloudy", "windy", "snowing", "icy", "scorching"];
+        const locationModifiers = ["Spooky", "Mythical", "Run down", "Ancient", "Brand new", "Overgrown", "Futuristic", "Deserted", "Polluted", "Industrial"];
+        const enders = ["someone falling", "someone crying", "someone slapping someone else", "someone dying", "someone being rejected", "someone causes a power outage", "someone breaking the fourth wall", "with an eerie silence", "on a cliffhanger"];
     
         let selectedPlace = places[Math.floor(Math.random() * places.length)];
         let description = "";
@@ -255,10 +259,9 @@
     }
 
     function rerollPlayer() {
-        const roles = ["Old man", "fake guru", "teenager", "baby", "banana sales man", "CEO", "clown", "magician"];
+        const roles = ["Old man", "Fake guru", "Teenager", "Baby", "Banana sales man", "CEO", "Clown", "Magician", "Time traveller", "Alien", "Robot", "Ghost", "Sports coach", "Crappy motivational speaker", "Fortune teller", "Failed politician", "Renaissance fair fanatic", "Wannabe detective", "Pirate", "Large social media influencer" "Extremely unpopular social media influencer", "Doomsday prepper", "Washed up rock star", "Upcoming news reporter", "4.9 star chef"];
         const speechModifiers = ["with a lisp", "with a western accent", "with a stutter", "with a british accent", "with a deep voice", "with a high pitched voice", "that is monotone", "with a raspy voice", "that talks quickly", "that talks slowly", "with a nasal voice", "with a whispery voice", "that mumbles"];
         const attitudes = ["Sad", "Angry", "Scared", "Confused", "Calm", "Optimistic" , "Pessimistic", "Cynical", "Curious", "Rebellious", "Empathetic", "Arrogant", "Humble", "Aggressive", "Passive", "Loyal", "Deceptive", "Skeptical"];
-        const personalities = ["Quirky", "Sassy", "Sarcastic", "Stoic"];
         const quests = ["and your quest is to slowly go insane", "and your quest is to leave the scene early", "and your quest is to insult another player multiple times", "and your quest is to make another player laugh", "and your quest is to slowly act more and more like a monkey until someone notices", "and your quest is to speak in an accent that gets stronger as the scene progresses", "and your quest is to become increasingly obsessed with an object in the scene", "and your quest is to end every sentence with a random word or vocal shift"];
 
         let selectedRole = roles[Math.floor(Math.random() * roles.length)];
@@ -270,9 +273,6 @@
         }
         if (document.getElementById('AttitudeToggle').checked) {
             selectedRole = attitudes[Math.floor(Math.random() * attitudes.length)] + " " + selectedRole;
-        }
-        if (document.getElementById('PersonalityToggle').checked) {
-            selectedRole = personalities[Math.floor(Math.random() * personalities.length)] + " " + selectedRole;
         }
         if (document.getElementById('QuestToggle').checked) {
             description += " " + quests[Math.floor(Math.random() * quests.length)];
