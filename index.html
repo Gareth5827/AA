@@ -58,10 +58,11 @@
         }
         
         button {
+            display: block; /* This makes each button take up its own line, aligning them vertically */
             font-size: var(--button-font-size);
             width: var(--button-width);
             height: var(--button-height);
-            margin: var(--button-spacing) 10px 0;
+            margin: var(--button-spacing) auto 0; /* Adjusted to center the buttons and provide spacing */
             cursor: pointer;
         }
 
