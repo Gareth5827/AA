@@ -151,14 +151,14 @@
         document.getElementById(`${menuType}Menu`).classList.remove('hidden');
     }
 
-        function rerollHost() {
+    function rerollHost() {
         const places = ["Trailer park", "Coffee shop", "Castle", "Beach"];
         const situations = {
             "Trailer park": ["Community BBQ", "New trailer"],
             "Coffee shop": ["Only has soy milk", "rush hour"],
             "Castle": ["Under siege", "royal ball"],
             "Beach": ["Shark sighting", "Volleyball tournament"]
-                            }
+        };
         const weathers = ["raining", "snowing", "hailing", "storming", "foggy"];
         const locationModifiers = ["Spooky", "Mythical", "Run down", "Ancient", "Brand new"];
         const enders = ["someone falling", "someone crying", "someone slapping someone else", "someone dying"];
@@ -171,6 +171,13 @@
             selectedPlace = locationModifiers[Math.floor(Math.random() * locationModifiers.length)] + " " + selectedPlace;
         }
     
+        // Situation toggle logic
+        if (document.getElementById('SituationToggle').checked) {
+            let placeSituations = situations[selectedPlace];
+            let situation = placeSituations[Math.floor(Math.random() * placeSituations.length)];
+            description += ", " + situation; // Adjusted to ensure the situation is appended correctly
+        }
+    
         // Apply weather if toggle is on
         if (document.getElementById('WeatherToggle').checked) {
             description += " and it's " + weathers[Math.floor(Math.random() * weathers.length)] + "!";
@@ -179,12 +186,6 @@
         // Apply ender if toggle is on
         if (document.getElementById('EnderToggle').checked) {
             description += " And the scene will end by " + enders[Math.floor(Math.random() * enders.length)] + "!";
-        }
-        // Situation toggle logic
-        if (document.getElementById('SituationToggle').checked) {
-            let placeSituations = situations[selectedPlace];
-            let situation = placeSituations[Math.floor(Math.random() * placeSituations.length)];
-            description += " The situation: " + situation + ".";
         }
     
         document.getElementById('hostDisplayBox').innerText = selectedPlace + description;
