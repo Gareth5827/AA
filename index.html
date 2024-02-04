@@ -7,7 +7,8 @@
         :root {
             --show-box-font-size: 18px; /* Adjustable font size for show box */
             --display-box-font-size: 16px; /* Adjustable font size for display box */
-            --button-font-size: 16px; /* Adjustable font size for buttons */
+            --button-font-size: 18px; /* Adjustable font size for buttons */
+            --padding: 20px;
             --button-width: 150px; /* Adjustable button width */
             --button-height: 50px; /* Adjustable button height */
             --button-spacing: 50px; /* Spacing between buttons */
@@ -42,22 +43,12 @@
             display: none;
         }
         
-        #showBox, #displayBox {
+        #showBox, #displayBox, #hostBox, #hostDisplayBox, #tutorialMenu p {
             font-size: var(--display-box-font-size);
+            padding: var(--padding);
             margin: 20px auto;
-            padding: 10px;
-            border: 1px solid black;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        #hostBox, #hostDisplayBox {
-            /* Apply the variable font sizes */
-            margin: 20px auto;
-            padding: 10px;
-            border: 1px solid black;
-            max-width: 600px; /* Adjust width as needed */
-            text-align: center;
+            max-width: calc(100% - 40px); /* Adjust based on padding to prevent text from touching the screen edges */
+            box-sizing: border-box; /* Ensures padding is included in the width */
         }
 
         /* Toggle button styling */
@@ -72,6 +63,13 @@
             height: var(--button-height);
             margin: var(--button-spacing) 10px 0;
             cursor: pointer;
+        }
+
+        #tutorialMenu p {
+        font-size: 20px; /* Larger font size for readability */
+        padding: 0 20px; /* Adds padding on the sides */
+        margin: 10px 0; /* Adds some space between paragraphs */
+        max-width: calc(100% - 40px); /* Adjusts maximum width to prevent text from touching the edges */
         }
 
         #showBox {
@@ -115,11 +113,12 @@
     <div class="toggle">Weather: <input type="checkbox" id="WeatherToggle"></div>
     <div class="toggle">Location Modifier: <input type="checkbox" id="LocationModifierToggle"></div>
     <div class="toggle">Ender: <input type="checkbox" id="EnderToggle"></div>
+    <div class="toggle">Situation: <input type="checkbox" id="SituationToggle"></div>
 </div>
 
 <!-- Tutorial Menu -->
 <div class="centered hidden" id="tutorialMenu">
-    <p>Hello and welcome to aaaaaaaaaaaaand ACTION! This will go over the multitude of complex rules only the most experienced actors should even consider attempting.</p>
+    <p>Hello and welcome to aaaaaaaaaaaaand ACTION! This will go over the multitude of complex rules only the most experienced actors should even consider trying to follow.</p>
     <p>If you're a player, click on the Player button on the main menu and select the modifiers you want. After everything is set, hit Reroll. Once you figure out who you are, you must pretend to be that thing for the scene. For example, if I am a Sarcastic angry baby with a stutter and my quest is to insult another player, I must pretend to be a sarcastic angry baby with a stutter, and insult another player before the scene ends.</p>
     <p>If you're a host, click on the Host button on the main menu and select the modifiers you want. After everything is set, hit Reroll. Once you figure out what the scene is, start the timer! For example, if my scene is a Community BBQ at a run down trailer park where it's hailing and the scene ends with someone dying, the players need to figure out how they're going to act out a community BBQ at a dumpy trailer park during a hailstorm, and have to end the scene with someone dying.</p>
     <p>Anyway that wraps up the extensive rule list for aaaaaaaaaaaaand ACTION! Thanks and have fun.</p>
@@ -154,6 +153,11 @@
 
         function rerollHost() {
         const places = ["Trailer park", "Coffee shop", "Castle", "Beach"];
+        const situations = {
+            "Trailer park": ["Community BBQ", "New trailer"],
+            "Coffee shop": ["Only has soy milk", "rush hour"],
+            "Castle": ["Under siege", "royal ball"],
+            "Beach": ["Shark sighting", "Volleyball tournament"]
         const weathers = ["raining", "snowing", "hailing", "storming", "foggy"];
         const locationModifiers = ["Spooky", "Mythical", "Run down", "Ancient", "Brand new"];
         const enders = ["someone falling", "someone crying", "someone slapping someone else", "someone dying"];
@@ -174,6 +178,12 @@
         // Apply ender if toggle is on
         if (document.getElementById('EnderToggle').checked) {
             description += " And the scene will end by " + enders[Math.floor(Math.random() * enders.length)] + "!";
+        }
+        // Situation toggle logic
+        if (document.getElementById('SituationToggle').checked) {
+            let placeSituations = situations[selectedPlace];
+            let situation = placeSituations[Math.floor(Math.random() * placeSituations.length)];
+            description += " The situation: " + situation + ".";
         }
     
         document.getElementById('hostDisplayBox').innerText = selectedPlace + description;
