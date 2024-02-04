@@ -7,11 +7,11 @@
         :root {
             --show-box-font-size: 18px; /* Adjustable font size for show box */
             --display-box-font-size: 20px; /* Adjustable font size for display box */
-            --button-font-size: 20px; /* Adjustable font size for buttons */
-            --padding: 20px;
+            --button-font-size: 25px; /* Adjustable font size for buttons */
+            --padding: 10px;
             --button-width: 130px; /* Adjustable button width */
-            --button-height: 80px; /* Adjustable button height */
-            --button-spacing: 50px; /* Spacing between buttons */
+            --button-height: 70px; /* Adjustable button height */
+            --button-spacing: 125px; /* Spacing between buttons */
             --host-box-font-size: 18px; /* Adjustable font size for host box */
             --host-display-box-font-size: 16px; /* Adjustable font size for host display box */
         }
@@ -53,8 +53,28 @@
 
         /* Toggle button styling */
         .toggle {
-            margin: 20px 5px;
+            margin: 30px 30px;
             cursor: pointer;
+        }
+
+        .toggle label {
+            font-size: 25px; /* Enlarged label text */
+            display: inline-block; /* Aligns text properly with the checkbox */
+            margin-right: 10px; /* Spacing between label and checkbox */
+        }
+        
+        /* Styling for toggle container to arrange them */
+        .toggle-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        
+        /* Enlarge checkboxes */
+        input[type="checkbox"] {
+            transform: scale(1.5); /* Enlarges checkboxes */
+            margin: 0 10px; /* Adjust spacing around checkboxes */
         }
         
         .MainMenuButton {
@@ -104,16 +124,22 @@
     <button class="MainMenuButton" onclick="showMenu('tutorial')">Tutorial</button>
 </div>
 
-<!-- Player Menu -->
 <div class="centered hidden" id="playerMenu">
     <button onclick="showMenu('main')">Back</button>
     <button onclick="rerollPlayer()">Reroll</button>
     <div id="showBox" style="font-size: var(--show-box-font-size);">You are playing as...</div>
     <div id="displayBox" style="font-size: var(--display-box-font-size);"></div>
-    <div class="toggle">Speech: <input type="checkbox" id="SpeechToggle"></div>
-    <div class="toggle">Attitude: <input type="checkbox" id="AttitudeToggle"></div>
-    <div class="toggle">Personality: <input type="checkbox" id="PersonalityToggle"></div>
-    <div class="toggle">Quest: <input type="checkbox" id="QuestToggle"></div>
+    
+    <div class="toggle-container">
+        <div>
+            <div class="toggle">Speech: <input type="checkbox" id="SpeechToggle"></div>
+            <div class="toggle">Attitude: <input type="checkbox" id="AttitudeToggle"></div>
+        </div>
+        <div>
+            <div class="toggle">Personality: <input type="checkbox" id="PersonalityToggle"></div>
+            <div class="toggle">Quest: <input type="checkbox" id="QuestToggle"></div>
+        </div>
+    </div>
 </div>
 
 <!-- Host Menu -->
