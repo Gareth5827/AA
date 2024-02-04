@@ -167,28 +167,32 @@
         let description = "";
     
         // Apply location modifier if toggle is on
+        let placeModifier = "";
         if (document.getElementById('LocationModifierToggle').checked) {
-            selectedPlace = locationModifiers[Math.floor(Math.random() * locationModifiers.length)] + " " + selectedPlace;
+            placeModifier = locationModifiers[Math.floor(Math.random() * locationModifiers.length)] + " ";
         }
     
-        // Situation toggle logic
+        // Construct initial part of the description with location and modifier
+        description = placeModifier + selectedPlace;
+    
+        // Apply situation if toggle is on
         if (document.getElementById('SituationToggle').checked) {
-            let placeSituations = situations[selectedPlace];
+            let placeSituations = situations[selectedPlace] || [];
             let situation = placeSituations[Math.floor(Math.random() * placeSituations.length)];
-            description += ", " + situation; // Adjusted to ensure the situation is appended correctly
+            description += ", " + situation; // Ensure the situation is appended correctly
         }
     
         // Apply weather if toggle is on
         if (document.getElementById('WeatherToggle').checked) {
-            description += " and it's " + weathers[Math.floor(Math.random() * weathers.length)] + "!";
+            description += " And it's " + weathers[Math.floor(Math.random() * weathers.length)] + "!";
         }
     
         // Apply ender if toggle is on
         if (document.getElementById('EnderToggle').checked) {
-            description += " And the scene will end by " + enders[Math.floor(Math.random() * enders.length)] + "!";
+            description += " The scene will end by " + enders[Math.floor(Math.random() * enders.length)] + ".";
         }
     
-        document.getElementById('hostDisplayBox').innerText = selectedPlace + description;
+        document.getElementById('hostDisplayBox').innerText = description;
     }
 
     function rerollPlayer() {
