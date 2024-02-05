@@ -183,13 +183,32 @@
     <button onclick="showMenu('main')">Back</button>
 </div>
 
+    <div id="timerControls">
+    <button onclick="increaseTimer()">Increase Timer</button>
+    <button onclick="decreaseTimer()">Decrease Timer</button>
+    <button onclick="startTimer()">Start Timer</button>
+    <button onclick="stopTimer()">Stop Timer</button>
+    <button onclick="resetTimer()">Reset Timer</button>
+    <div id="timerBox">5:00</div> <!-- Default display -->
+    </div>
+
+
 <script>
     let mainText = "aaaaaaaaaaaaaaaaaaaaand ACTION";
     let mainContainer = document.getElementById('dynamicText');
     let mainIndex = 0;
     let avoidListPlayer = []; // Avoid list for player rerolls
     let avoidListHost = []; // Avoid list for host rerolls
-
+    let timerValue = 2; // Default timer value
+    let countdown; // Variable to store the countdown interval
+    
+    const timerDurations = {
+    0: 60, // 1 minute in seconds
+    1: 150, // 2 minutes and 30 seconds in seconds
+    2: 300, // 5 minutes in seconds
+    3: 600 // 10 minutes in seconds
+    };
+    
     function typeMainLetter() {
         if (mainIndex < mainText.length) {
             let span = document.createElement('span');
@@ -212,6 +231,7 @@
     }
 
     function rerollHost() {
+        resetTimer();
         const places = ["Trailer park", "Coffee shop", "Castle", "Beach", "Amusement park", "Space station", "Wild west town", "Arctic research base", "1950s diner"];
         const situations = {
             "Trailer park": [" having a community BBQ", " having a community talent show", " with an unexpected celebrity visit"],
@@ -282,6 +302,50 @@
 
     // Update avoid list
     updateAvoidList(avoidListHost, [selectedPlace, selectedWeather, selectedLocationModifier, selectedEnder].filter(Boolean).concat(document.getElementById('SituationToggle').checked ? [description] : []));
+    }
+
+        function updateTimerDisplay() {
+        const minutes = Math.floor(timerDurations[timerValue] / 60);
+        const seconds = timerDurations[timerValue] % 60;
+        document.getElementById('timerBox').innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+    
+    function increaseTimer() {
+        if (timerValue < 3) {
+            timerValue++;
+            updateTimerDisplay();
+        }
+    }
+    
+    function decreaseTimer() {
+        if (timerValue > 0) {
+            timerValue--;
+            updateTimerDisplay();
+        }
+    }
+    
+    function startTimer() {
+        let timeLeft = timerDurations[timerValue];
+        clearInterval(countdown); // Clear any existing timer
+        countdown = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerBox').innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+            } else {
+                timeLeft--;
+            }
+        }, 1000);
+    }
+    
+    function stopTimer() {
+        clearInterval(countdown);
+    }
+    
+    function resetTimer() {
+        clearInterval(countdown);
+        updateTimerDisplay();
     }
 
 function rerollPlayer() {
