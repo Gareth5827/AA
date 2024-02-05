@@ -228,7 +228,17 @@
         const locationModifiers = ["Spooky", "Mythical", "Run down", "Ancient", "Brand new", "Overgrown", "Futuristic", "Deserted", "Polluted", "Industrial"];
         const enders = ["someone falling", "someone crying", "someone slapping someone else", "someone dying", "someone being rejected", "someone causes a power outage", "someone breaking the fourth wall", "with an eerie silence", "a cliffhanger"];
     
-        let selectedPlace = places[Math.floor(Math.random() * places.length)];
+        // Filtering options to exclude those in the avoid list
+        let filteredPlaces = places.filter(place => !avoidListHost.includes(place));
+        let filteredWeathers = weathers.filter(weather => !avoidListHost.includes(weather));
+        let filteredLocationModifiers = locationModifiers.filter(modifier => !avoidListHost.includes(modifier));
+        let filteredEnders = enders.filter(ender => !avoidListHost.includes(ender));
+    
+        // Random selection from filtered arrays
+        let selectedPlace = filteredPlaces[Math.floor(Math.random() * filteredPlaces.length)];
+        let selectedWeather = document.getElementById('WeatherToggle').checked ? filteredWeathers[Math.floor(Math.random() * filteredWeathers.length)] : '';
+        let selectedLocationModifier = document.getElementById('LocationModifierToggle').checked ? filteredLocationModifiers[Math.floor(Math.random() * filteredLocationModifiers.length)] : '';
+        let selectedEnder = document.getElementById('EnderToggle').checked ? filteredEnders[Math.floor(Math.random() * filteredEnders.length)] : '';
         let description = "";
     
         // Apply location modifier if toggle is on
@@ -257,7 +267,21 @@
             description += " The scene will end by " + enders[Math.floor(Math.random() * enders.length)] + ".";
         }
     
-        document.getElementById('hostDisplayBox').innerText = description;
+    // Apply situation based on the selected place
+    if (document.getElementById('SituationToggle').checked && situations[selectedPlace]) {
+        let filteredSituations = situations[selectedPlace].filter(situation => !avoidListHost.includes(situation));
+        let selectedSituation = filteredSituations.length > 0 ? filteredSituations[Math.floor(Math.random() * filteredSituations.length)] : '';
+        description += `${selectedSituation}`;
+    }
+
+    // Append weather and ender if toggled
+    description += selectedWeather ? ` and it's ${selectedWeather}` : '';
+    description += selectedEnder ? `. The scene will end by ${selectedEnder}.` : '';
+
+    document.getElementById('hostDisplayBox').innerText = description.trim();
+
+    // Update avoid list
+    updateAvoidList(avoidListHost, [selectedPlace, selectedWeather, selectedLocationModifier, selectedEnder].filter(Boolean).concat(document.getElementById('SituationToggle').checked ? [description] : []));
     }
 
 function rerollPlayer() {
