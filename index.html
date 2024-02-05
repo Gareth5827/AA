@@ -187,6 +187,8 @@
     let mainText = "aaaaaaaaaaaaaaaaaaaaand ACTION";
     let mainContainer = document.getElementById('dynamicText');
     let mainIndex = 0;
+    let avoidListPlayer = []; // Avoid list for player rerolls
+    let avoidListHost = []; // Avoid list for host rerolls
 
     function typeMainLetter() {
         if (mainIndex < mainText.length) {
@@ -258,27 +260,44 @@
         document.getElementById('hostDisplayBox').innerText = description;
     }
 
-    function rerollPlayer() {
-        const roles = ["Old man", "Fake guru", "Teenager", "Baby", "Banana sales man", "CEO", "Clown", "Magician", "Time traveller", "Alien", "Robot", "Ghost", "Sports coach", "Crappy motivational speaker", "Fortune teller", "Failed politician", "Renaissance fair fanatic", "Wannabe detective", "Pirate", "Large social media influencer", "Extremely unpopular social media influencer", "Doomsday prepper", "Washed up rock star", "Upcoming news reporter", "4.9 star chef"];
-        const speechModifiers = ["with a lisp", "with a western accent", "with a stutter", "with a british accent", "with a deep voice", "with a high pitched voice", "that is monotone", "with a raspy voice", "that talks quickly", "that talks slowly", "with a nasal voice", "with a whispery voice", "that mumbles"];
-        const attitudes = ["Sad", "Angry", "Scared", "Confused", "Calm", "Optimistic" , "Pessimistic", "Cynical", "Curious", "Rebellious", "Empathetic", "Arrogant", "Humble", "Aggressive", "Passive", "Loyal", "Deceptive", "Skeptical"];
-        const quests = ["and your quest is to slowly go insane", "and your quest is to leave the scene early", "and your quest is to insult another player multiple times", "and your quest is to make another player laugh", "and your quest is to slowly act more and more like a monkey until someone notices", "and your quest is to speak in an accent that gets stronger as the scene progresses", "and your quest is to become increasingly obsessed with an object in the scene", "and your quest is to end every sentence with a random word or vocal shift"];
+function rerollPlayer() {
+    // Your full lists of roles, speechModifiers, attitudes, and quests
+    const roles = ["Old man", "Fake guru", "Teenager", "Baby", "Banana sales man", "CEO", "Clown", "Magician", "Time traveller", "Alien", "Robot", "Ghost", "Sports coach", "Crappy motivational speaker", "Fortune teller", "Failed politician", "Renaissance fair fanatic", "Wannabe detective", "Pirate", "Large social media influencer", "Extremely unpopular social media influencer", "Doomsday prepper", "Washed up rock star", "Upcoming news reporter", "4.9 star chef"];
+    const speechModifiers = ["with a lisp", "with a western accent", "with a stutter", "with a british accent", "with a deep voice", "with a high pitched voice", "that is monotone", "with a raspy voice", "that talks quickly", "that talks slowly", "with a nasal voice", "with a whispery voice", "that mumbles"];
+    const attitudes = ["Sad", "Angry", "Scared", "Confused", "Calm", "Optimistic", "Pessimistic", "Cynical", "Curious", "Rebellious", "Empathetic", "Arrogant", "Humble", "Aggressive", "Passive", "Loyal", "Deceptive", "Skeptical"];
+    const quests = ["and your quest is to slowly go insane", "and your quest is to leave the scene early", "and your quest is to insult another player multiple times", "and your quest is to make another player laugh", "and your quest is to slowly act more and more like a monkey until someone notices", "and your quest is to speak in an accent that gets stronger as the scene progresses", "and your quest is to become increasingly obsessed with an object in the scene", "and your quest is to end every sentence with a random word or vocal shift"];
 
-        let selectedRole = roles[Math.floor(Math.random() * roles.length)];
-        let description = "";
+    // Filtering options to exclude those in the avoid list
+    let filteredRoles = roles.filter(role => !avoidListPlayer.includes(role));
+    let filteredSpeechModifiers = speechModifiers.filter(modifier => !avoidListPlayer.includes(modifier));
+    let filteredAttitudes = attitudes.filter(attitude => !avoidListPlayer.includes(attitude));
+    let filteredQuests = quests.filter(quest => !avoidListPlayer.includes(quest));
 
-        // Check each toggle and append modifiers accordingly
-        if (document.getElementById('SpeechToggle').checked) {
-            description += " " + speechModifiers[Math.floor(Math.random() * speechModifiers.length)];
-        }
-        if (document.getElementById('AttitudeToggle').checked) {
-            selectedRole = attitudes[Math.floor(Math.random() * attitudes.length)] + " " + selectedRole;
-        }
-        if (document.getElementById('QuestToggle').checked) {
-            description += " " + quests[Math.floor(Math.random() * quests.length)];
-        }
+    // Random selection from filtered arrays
+    let selectedRole = filteredRoles[Math.floor(Math.random() * filteredRoles.length)];
+    let selectedSpeechModifier = document.getElementById('SpeechToggle').checked ? filteredSpeechModifiers[Math.floor(Math.random() * filteredSpeechModifiers.length)] : '';
+    let selectedAttitude = document.getElementById('AttitudeToggle').checked ? filteredAttitudes[Math.floor(Math.random() * filteredAttitudes.length)] : '';
+    let selectedQuest = document.getElementById('QuestToggle').checked ? filteredQuests[Math.floor(Math.random() * filteredQuests.length)] : '';
 
-        document.getElementById('displayBox').innerText = selectedRole + description;
+    // Constructing the description
+    let description = `${selectedAttitude} ${selectedRole} ${selectedSpeechModifier} ${selectedQuest}`.trim();
+    document.getElementById('displayBox').innerText = description;
+
+    // Update avoid list
+    updateAvoidList(avoidListPlayer, [selectedRole, selectedSpeechModifier, selectedAttitude, selectedQuest].filter(Boolean));
+}
+
+        function updateAvoidList(avoidList, newItems) {
+        newItems.forEach(item => {
+            if (!avoidList.includes(item)) {
+                avoidList.unshift(item); // Add new items to the start of the list
+            }
+        });
+    
+        // Truncate the avoid list to the last 5 items
+        avoidList.splice(5);
+    
+        console.log("Updated Avoid List: ", avoidList);
     }
 
     window.onload = function() {
